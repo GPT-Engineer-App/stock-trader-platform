@@ -1,10 +1,18 @@
 import React, { useState } from "react";
 import { Box, Button, Container, Heading, Input, Stack, Table, Tbody, Td, Th, Thead, Tr, useToast, VStack } from "@chakra-ui/react";
-import { FaPlus, FaShoppingCart, FaDollarSign } from "react-icons/fa";
+import { FaPlus, FaShoppingCart, FaDollarSign, FaTimes } from "react-icons/fa";
 
 const Index = () => {
   const [stocks, setStocks] = useState([]);
+
+  const [accounts, setAccounts] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [transactions, setTransactions] = useState([]);
+  const [cashAccount, setCashAccount] = useState(0);
+
   const [newStockName, setNewStockName] = useState("");
+  const [newStockTicker, setNewStockTicker] = useState("");
+  const [newStockVolume, setNewStockVolume] = useState("");
   const [newStockPrice, setNewStockPrice] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const toast = useToast();
@@ -63,10 +71,13 @@ const Index = () => {
         {isAdmin && (
           <Box as="form" onSubmit={(e) => e.preventDefault()}>
             <Stack direction={["column", "row"]} spacing={4} align="center">
+              {}
               <Input placeholder="Stock Name" value={newStockName} onChange={(e) => setNewStockName(e.target.value)} />
+              <Input placeholder="Stock Ticker" value={newStockTicker} onChange={(e) => setNewStockTicker(e.target.value)} />
+              <Input placeholder="Volume" type="number" value={newStockVolume} onChange={(e) => setNewStockVolume(e.target.value)} />
               <Input placeholder="Initial Price" type="number" value={newStockPrice} onChange={(e) => setNewStockPrice(e.target.value)} />
-              <Button leftIcon={<FaPlus />} colorScheme="teal" onClick={addStock}>
-                Create Stock
+              <Button leftIcon={<FaPlus />} colorScheme="teal" onClick={() => addStock(newStockName, newStockTicker, newStockVolume, newStockPrice)}>
+                Add Stock
               </Button>
             </Stack>
           </Box>
@@ -92,6 +103,8 @@ const Index = () => {
                       <Button leftIcon={<FaShoppingCart />} size="sm" onClick={() => buyStock(stock.name)}>
                         Buy
                       </Button>
+                      {}
+                      {}
                       <Button leftIcon={<FaDollarSign />} size="sm" colorScheme="pink" onClick={() => sellStock(stock.name)}>
                         Sell
                       </Button>
